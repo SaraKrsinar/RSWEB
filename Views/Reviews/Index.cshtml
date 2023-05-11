@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Bookstore.Models.Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>Reviews</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Review</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Reviews", new { id = item.Id })'">Edit</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Reviews", new { id = item.Id })'">Details</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Reviews", new { id = item.Id })' ">Delete</button>
+                </td>
+
+
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Bookstore.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Book</a>
+</p>
+
+
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString" placeholder="Enter Title" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Genre: <input type="text" name="SearchGenre" placeholder="Enter Genre" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearPublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumPages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrontPage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Prosek)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @if (ViewBag.lista != null)
+        {
+            foreach (var list in ViewBag.lista)
+            {
+                <tr>
+                    <td>
+                        @list.Title
+                    </td>
+                    <td>
+                        @list.YearPublished
+                    </td>
+                    <td>
+                        @list.NumPages
+                    </td>
+                    <td>
+                        @list.Description
+                    </td>
+                    <td>
+                        @list.Publisher
+                    </td>
+                    <td>
+                        @list.FrontPage
+                    </td>
+                    <td>
+                        @list.DownloadUrl
+                    </td>
+                    <td>
+                        @list.Author.FirstName
+                    </td>
+                    <td>@list.Prosek</td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@list.Id" class="btn btn-primary">EDIT</a> |
+                        <a asp-action="Details" asp-route-id="@list.Id" class="btn btn-info">DETAILS</a> |
+                        <a asp-action="Delete" asp-route-id="@list.Id" class="btn btn-danger">DELETE</a>
+                    </td>
+                </tr>
+            }
+        }
+
+
+        else{
+
+@foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearPublished)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumPages)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                        <td>
+                        <img src="~/slikifrontpage/@item.FrontPage"
+                             height="200" width="150"   
+                         asp-append-version="true" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DownloadUrl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author.FullName)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Prosek)</td>
+
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Books", new { id = item.Id })'">Edit</button>
+                        <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Books", new { id = item.Id })'">Details</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Books", new { id = item.Id })' ">Delete</button>
+                    </td>
+
+                    </tr>
+               
+}
+}
+    </tbody>
+</table>

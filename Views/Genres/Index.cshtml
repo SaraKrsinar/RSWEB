@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Bookstore.Models.Genre>
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h1>Genres</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Genre</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GenreName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Genres", new { id = item.Id })'">Edit</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Genres", new { id = item.Id })'">Details</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Genres", new { id = item.Id })' ">Delete</button>
+                </td>
+
+        </tr>
+}
+    </tbody>
+</table>
